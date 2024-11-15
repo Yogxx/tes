@@ -1,3 +1,15 @@
-whatsapp.com
-web.whatsapp.com
-￼Enter
+proxies:
+
+  - name: ikade
+    server: 103.167.34.95
+    port: 443
+    type: trojan
+    password: acf8df5e-f7a4-4fd2-ae5b-8f8e2d62fb0f
+    skip-cert-verify: true
+    sni: hwvip.iflix.com
+    network: ws
+    ws-opts:
+      path: /trojan-ws
+      headers:
+        Host: 103.167.34.95
+    udp: true
