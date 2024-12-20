@@ -10,6 +10,8 @@ on:
         default: '22.03.5'
         options:
           - '22.03.5'
+          - '23.05.4'
+          - '23.05.5'
       target_subtarget:
         type: choice
         required: true
@@ -18,6 +20,7 @@ on:
         options:
           - 'ramips/mt7620'
           - 'armvirt/64'
+          - 'armsr/armv8'
       target_profile:
         type: choice
         required: true
@@ -100,7 +103,7 @@ jobs:
       - name: Tweaks .config File
         shell: bash
         working-directory: ./sdk
-        if: ${{inputs.target_subtarget == 'armvirt/32' || inputs.target_subtarget == 'armvirt/64'}}
+        if: ${{inputs.target_subtarget == 'armsr/armv7' || inputs.target_subtarget == 'armsr/armv8'}}
         run: |
           if [[ -f "${PWD}/.config" ]];then
             for x in CONFIG_TARGET_ROOTFS_CPIOGZ CONFIG_TARGET_ROOTFS_SQUASHFS CONFIG_TARGET_IMAGES_GZIP CONFIG_JSON_OVERVIEW_IMAGE_INFO;do
