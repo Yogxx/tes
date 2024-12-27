@@ -35,7 +35,7 @@ on:
         type: choice
         required: true
         description: "Packages list file :"
-        default: 'Packages_STB_NoDocker.txt'
+        default: 'none'
         options:
           - 'Packages_STB_NoDocker.txt'
           - 'Packages_STB_Docker.txt'
@@ -54,7 +54,7 @@ on:
         type: choice
         required: true
         description: "Custom packages path :"
-        default: 'Custom_Pkgs_STB'
+        default: 'none'
         options:
           - 'Custom_Pkgs_BOLT'
           - 'Custom_Pkgs_STB'
@@ -86,7 +86,7 @@ jobs:
           [[ -d "${PWD}/sdk" ]] || mkdir "${PWD}/sdk"
           [[ -d "${PWD}/out" ]] || mkdir "${PWD}/out"
           builder_url="https://downloads.openwrt.org/releases/${{inputs.openwrt_version}}/targets/${{inputs.target_subtarget}}" &&
-          builder_name="openwrt-imagebuilder-${{inputs.openwrt_version}}-$(sed 's|/|-|g'<<<${{inputs.target_subtarget}}).Linux-x86_64.tar.xz" &&
+          builder_name="openwrt-imagebuilder-${{inputs.openwrt_version}}-$(sed 's|/|-|g'<<<${{inputs.target_subtarget}}).Linux-x86_64.tar.zst" &&
           echo "Downloading image builder from ${builder_url}/${builder_name}" &&
           if wget -qO "${PWD}/tmp/${builder_name}" "${builder_url}/${builder_name}">/dev/null 2>&1;then
             echo "Extracting imagebuilder from ${PWD}/tmp/${builder_name} to ${PWD}/sdk" &&
@@ -116,7 +116,7 @@ jobs:
                 exit
               fi
             done &&
-            target_root_size="1024" &&
+            target_root_size="512" &&
             if sed -i "s|^CONFIG_TARGET_ROOTFS_PARTSIZE=.*|CONFIG_TARGET_ROOTFS_PARTSIZE=${target_root_size}|g" "${PWD}/.config";then
               echo "Target rootfs size set to ${target_root_size}"
             else
