@@ -1,7 +1,0 @@
-- name: Compile the kernel
-  uses: ophub/amlogic-s9xxx-armbian@main
-  with:
-    build_target: kernel
-    kernel_version: 6.6.67
-    kernel_auto: true
-    kernel_sign: -Happy-New-Year
